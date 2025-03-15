@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Certificates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+
+        body {
+            background-color: #000;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            cursor: pointer;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Space background with stars */
+        #space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Header styles */
+        header {
+            padding: 30px 0;
+            position: relative;
+        }
+
+        .nav {
+            display: flex;
+            cursor: pointer;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .menu {
+            display: flex;
+            gap: 30px;
+            cursor: pointer;
+        }
+
+        .menu a {
+            text-decoration: none;
+            cursor: pointer;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover {
+            color: #ff00cc;
+        }
+
+
+
+
+
+
+        /* Hero section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ff00cc, #3333ff, #00ffcc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+
+
+        /* About section */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 42px;
+            margin-bottom: 50px;
+            text-align: center;
+            background: linear-gradient(to right, #ff00cc, #3333ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 0, 204, 0.5);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* Skills section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 0, 204, 0.3);
+        }
+
+        .skill-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skill-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .skill-desc {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        /* Projects section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(51, 51, 255, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .project-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .project-link {
+            display: inline-block;
+            text-decoration: none;
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: #fff;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .project-link:hover {
+            transform: scale(1.05);
+        }
+
+        /* Certificates section */
+        .certificates-slider {
+            overflow: hidden;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .certificates-track {
+            display: flex;
+            gap: 30px;
+            animation: scroll 40s linear infinite;
+        }
+
+        .certificate-card {
+            flex: 0 0 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .certificate-image {
+            width: 100%;
+            height: 200px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .certificate-content {
+            padding: 20px;
+        }
+
+        .certificate-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .certificate-issuer {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .certificate-date {
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-330px * 5));
+            }
+        }
+
+        /* Contact section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #ff00cc;
+        }
+
+        .form-control::placeholder {
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            padding: 15px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        footer a {
+            color: #ff00cc;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes twinkle {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+@keyframes moveStars {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100vh); }
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    animation: twinkle 3s infinite alternate, moveStars 10s linear infinite, starColor 5s infinite alternate;
+}
+
+/* Mobile responsiveness */
+@media only screen and (max-width: 768px) {
+    body {
+        font-size: 14px; /* Adjust text size for readability */
+        padding: 10px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #333;
+    color: white;
+    padding: 15px;
+}
+
+/* Hide the menu toggle icon by default */
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Desktop menu */
+.menu {
+    display: flex;
+    gap: 30px;
+    cursor: pointer;
+}
+
+.menu a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #0dff00;
+    font-weight: 500;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.menu a:hover {
+    color: #ff00cc;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #0dff00;
+}
+
+/* Mobile menu */
+/* Keep desktop the same, but improve mobile responsiveness */
+@media only screen and (max-width: 768px) {
+    .container {
+        max-width: 95%;
+        padding: 0 10px;
+    }
+    
+    /* Reduce section padding for mobile */
+    .section {
+        padding: 40px 0;
+    }
+    
+    /* Make hero section more compact for mobile */
+    .hero {
+        height: auto;
+        min-height: 80vh;
+        padding: 20px 0;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+    }
+    
+    .hero h1 {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+    
+    .hero p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    
+    /* Adjust about section for mobile */
+    .about-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .about-image, .about-text {
+        width: 100%;
+    }
+    
+    /* Adjust projects grid for mobile */
+    .projects-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        gap: 15px;
+    }
+    
+    .project-card {
+        width: 100%;
+    }
+    
+    /* Make skills grid single column on mobile */
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    /* Make contact form thinner */
+    .contact-form {
+        padding: 20px;
+        max-width: 90%;
+    }
+    
+    /* Adjust section titles for mobile */
+    .section-title {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+}
+}
+
+/* For very small screens */
+@media only screen and (max-width: 480px) {
+    .container {
+        width: 92%;
+        padding: 0 5px;
+    }
+    
+    .hero h1 {
+        font-size: 28px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+    }
+    
+    /* Make project cards even more compact */
+    .project-image {
+        height: 140px;
+    }
+    
+    .project-title {
+        font-size: 20px;
+    }
+    
+    /* Make form inputs slightly smaller */
+    .form-control {
+        padding: 12px;
+    }
+}
+
+
+/* Add multiple colors */
+@keyframes starColor {
+    0% { background-color: rgb(255, 255, 255); } /* White */
+    25% { background-color: rgb(255, 215, 0); } /* Gold */
+    50% { background-color: rgb(173, 216, 230); } /* Light Blue */
+    75% { background-color: rgb(255, 192, 203); } /* Pink */
+    100% { background-color: rgb(144, 238, 144); } /* Light Green */
+}
+
+
+#space-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+/* Basic Styling for Loader */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white; /* White background for the quote */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0.9;
+    transition: opacity 2s ease-out; /* Smooth fade-out transition */
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+/* Quote Styling */
+.quote {
+    font-size: 36px;  /* Adjusted for readability */
+    font-family: 'Sacramento', cursive; /* Royal font */
+    color: #333;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 2s ease-out; /* Transition for fading out the text */
+}
+
+/* Fading Out the Loader */
+.hide-loader {
+    opacity: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* nav shit */
+
+
+@media only screen and (max-width: 768px) {
+    .certificates-track {
+        gap: 15px; /* Smaller gap on mobile */
+    }
+    
+    .certificate-card {
+        flex: 0 0 250px; /* Smaller width on mobile */
+    }
+    
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(-265px * 5));
+        }
+    }
+}
+
+
+
+
+@media only screen and (max-width: 768px) {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+
+/* Add this to your existing CSS */
+@media only screen and (max-width: 768px) {
+    .menu {
+        display: none; /* Hide menu by default on mobile */
+        position: absolute;
+        top: 70px; /* Position below the header */
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 20px;
+        z-index: 100;
+        text-align: center;
+    }
+    
+    .menu.active {
+        display: flex; /* Show menu when active class is added */
+    }
+    
+    .menu a {
+        margin: 10px 0;
+        font-size: 20px;
+    }
+    
+    .menu-toggle {
+        display: block; /* Show menu toggle on mobile */
+    }
+}
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+    <!-- Space background with stars -->
+    <div id="space-background"></div>
+
+    <!-- Header Section -->
+  <!-- Header Section -->
+<header>
+    <div class="container">
+        <div class="nav">
+            <a href="index.html"><div class="logo">Certificates</div></a>
+
+            <div class="menu" id="menu">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="skills.html">Skills</a>
+                <a href="projects.html">Projects</a>
+                <a href="certificates.html">Certificates</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span>☰</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container hero-content">
+            <h1>CERTIFICATES</h1>
+            <p></p>
+        </div>
+
+    </div>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">My Projects - Made with AI</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">Social Media Platform For Gamers</div>
+                    <div class="project-content">
+                        <div class="project-title">Social Media Platform For Gamers</div>
+                        <div class="project-desc">a small social media platform made with ai promt generation for gaming audience</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <div class="project-title">Project 2</div>
+                        <div class="project-desc">An app for monitoring real-time space data from satellites.</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <div class="project-title">Project 2</div>
+                        <div class="project-desc">An app for monitoring real-time space data from satellites.</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+
+
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <div class="project-title">Project 2</div>
+                        <div class="project-desc">An app for monitoring real-time space data from satellites.</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <div class="project-title">Project 2</div>
+                        <div class="project-desc">An app for monitoring real-time space data from satellites.</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+
+
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <div class="project-title">Project 2</div>
+                        <div class="project-desc">An app for monitoring real-time space data from satellites.</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+
+
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <div class="project-title">Project 2</div>
+                        <div class="project-desc">An app for monitoring real-time space data from satellites.</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+
+
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <div class="project-title">Project 2</div>
+                        <div class="project-desc">An app for monitoring real-time space data from satellites.</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+
+
+
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <div class="project-title">Project 2</div>
+                        <div class="project-desc">An app for monitoring real-time space data from satellites.</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+
+
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <div class="project-title">Project 2</div>
+                        <div class="project-desc">An app for monitoring real-time space data from satellites.</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+
+                <div class="project-card">
+                    <div class="project-image">Project 2</div>
+                    <div class="project-content">
+                        <div class="project-title">Project 2</div>
+                        <div class="project-desc">An app for monitoring real-time space data from satellites.</div>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Space Portfolio | Designed by Thuhina Pahasara</p>
+        </div>
+    </footer>
+
+    <script>
+
+
+function toggleMenu() {
+    document.getElementById('menu').classList.toggle('active');
+}
+
+
+
+
+
+
+
+
+// Enable touch swiping for mobile devices
+document.addEventListener('DOMContentLoaded', function() {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const slider = document.querySelector('.certificates-slider');
+    
+    slider.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+    
+    slider.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+    
+    function handleSwipe() {
+        if (touchEndX < touchStartX) {
+            // Swipe left - advance slider
+            console.log('Swiped left');
+        }
+        if (touchEndX > touchStartX) {
+            // Swipe right - go back
+            console.log('Swiped right');
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function toggleMenu() {
+    const menu = document.getElementById('menu');
+    menu.classList.toggle('active');
+}
+
+
+
+
+
+
+
+        const spaceBackground = document.getElementById("space-background");
+const numberOfStars = 2000;
+
+for (let i = 0; i < numberOfStars; i++) {
+    const star = document.createElement("div");
+    star.classList.add("star");
+    star.style.width = `${Math.random() * 3 + 1}px`;
+    star.style.height = star.style.width;
+    star.style.top = `${Math.random() * 100}vh`;
+    star.style.left = `${Math.random() * 100}vw`;
+    star.style.animationDuration = `${Math.random() * 5 + 5}s`; // Vary speed
+    spaceBackground.appendChild(star);
+}
+
+    </script>
+
+</body>
+</html>
